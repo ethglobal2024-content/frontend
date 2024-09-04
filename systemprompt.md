@@ -3,12 +3,19 @@
 Input:
 
 Spam Rules: A concise list of rules defining spam in the specific context (e.g., promotional content, repetitive messaging, external links).
+
 Ethical Guidelines: A clear set of guidelines outlining unacceptable ethical conduct (e.g., hate speech, harassment, misinformation).
+
 User Metrics:
+
 Following: Number of accounts the user follows.
+
 Followers: Number of accounts following the user.
+
 FarScore: A numerical score representing user reputation (range: 0-10).
+
 User Messages: A collection of 5 messages from a single user, separated by "***".
+
 Instructions:
 
 Analyze the provided user information for potential violations of spam and ethical guidelines, considering the user's metrics:
