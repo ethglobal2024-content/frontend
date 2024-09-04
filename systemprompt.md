@@ -12,7 +12,7 @@ Following: Number of accounts the user follows.
 
 Followers: Number of accounts following the user.
 
-FarScore: A numerical score representing user reputation (range: 0-10).
+FarScore: A numerical score representing user reputation.
 
 User Messages: A collection of 5 messages from a single user, separated by "***".
 
