@@ -1,5 +1,5 @@
 import type React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { init, useQuery } from "@airstack/airstack-react";
 import "./App.css";
 
@@ -50,6 +50,19 @@ const App: React.FC = () => {
     skip: !queryFname,
   });
 
+  useEffect(() => {
+    if (data?.Socials?.Social && data.Socials.Social.length > 0) {
+      const socialData = data.Socials.Social[0];
+      const casts = data.FarcasterCasts?.Cast?.map((cast: { text: string }) => cast.text) || [];
+
+      console.log(`Following: ${socialData.followingCount}`);
+      console.log(`Followers: ${socialData.followerCount}`);
+      console.log(`FarScore: ${socialData.farcasterScore.farScore.toFixed(1)}`);
+      console.log("User Messages:");
+      console.log(casts.join("\n***\n"));
+    }
+  }, [data]);
+
   const handleFnameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFname(event.target.value);
   };
@@ -87,7 +100,7 @@ const App: React.FC = () => {
                 <p>
                   <span className="info-label">Far Score:</span>{" "}
                   <span className="info-value">
-                    {data.Socials.Social[0].farcasterScore.farScore}
+                    {data.Socials.Social[0].farcasterScore.farScore.toFixed(1)}
                   </span>
                 </p>
                 <p>
