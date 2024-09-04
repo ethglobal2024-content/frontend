@@ -1,6 +1,7 @@
 import type React from "react";
 import { useState, useEffect } from "react";
 import { init, useQuery } from "@airstack/airstack-react";
+import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react'
 import "./App.css";
 
 // Initialize Airstack with the API key from .env
@@ -14,6 +15,8 @@ const App: React.FC = () => {
   const [fname, setFname] = useState<string>("");
   const [queryFname, setQueryFname] = useState<string | null>(null);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
+  const { open } = useWeb3Modal();
+  const { address, isConnected } = useWeb3ModalAccount();
 
   const query = `
     query MyQuery {
@@ -53,87 +56,69 @@ const App: React.FC = () => {
   useEffect(() => {
     if (data?.Socials?.Social && data.Socials.Social.length > 0) {
       const socialData = data.Socials.Social[0];
-      const casts = data.FarcasterCasts?.Cast?.map((cast: { text: string }) => cast.text) || [];
-
-      console.log(`Following: ${socialData.followingCount}`);
-      console.log(`Followers: ${socialData.followerCount}`);
-      console.log(`FarScore: ${socialData.farcasterScore.farScore.toFixed(1)}`);
-      console.log("User Messages:");
-      console.log(casts.join("\n***\n"));
+      // Handle socialData as needed
     }
   }, [data]);
 
-  const handleFnameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFname(event.target.value);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (fname) {
-      setQueryFname(fname);
-      setHasSubmitted(true);
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setQueryFname(fname);
+    setHasSubmitted(true);
   };
 
   return (
     <div className="App">
-      <h1>Farcaster Profile and Recent Casts</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={fname}
-          onChange={handleFnameChange}
-          placeholder="Enter Farcaster name (e.g., vitalik.eth)"
-        />
-        <button type="submit">Get Info</button>
-      </form>
+      <header className="App-header">
+        <h1>Farcaster Profile Lookup</h1>
+      </header>
+      <main>
+        <div className="search-container">
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={fname}
+              onChange={(e) => setFname(e.target.value)}
+              placeholder="Enter Farcaster name"
+            />
+            <button type="submit">Search</button>
+          </form>
+          <button onClick={() => open()} className="connect-wallet-button" type="button">
+            {isConnected ? `Connected: ${address?.slice(0, 6)}...${address?.slice(-4)}` : 'Connect Wallet'}
+          </button>
+        </div>
 
-      {hasSubmitted && (
-        <>
-          {loading && <p>Loading...</p>}
-          {error && <p>Error: {error.message}</p>}
-          {data?.Socials?.Social &&
-          data.Socials.Social.length > 0 ? (
-            <div>
-              <h2>{data.Socials.Social[0].profileName}</h2>
-              <div className="profile-info">
-                <p>
-                  <span className="info-label">Far Score:</span>{" "}
-                  <span className="info-value">
-                    {data.Socials.Social[0].farcasterScore.farScore.toFixed(1)}
-                  </span>
-                </p>
-                <p>
-                  <span className="info-label">Followers:</span>{" "}
-                  <span className="info-value">
-                    {data.Socials.Social[0].followerCount}
-                  </span>
-                </p>
-                <p>
-                  <span className="info-label">Following:</span>{" "}
-                  <span className="info-value">
-                    {data.Socials.Social[0].followingCount}
-                  </span>
-                </p>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error.message}</p>}
+
+        {hasSubmitted && data && (
+          <div>
+            {data.Socials?.Social && data.Socials.Social.length > 0 ? (
+              <div>
+                <h2>Profile Information</h2>
+                <p>Name: {data.Socials.Social[0].profileName}</p>
+                <p>Followers: {data.Socials.Social[0].followerCount}</p>
+                <p>Following: {data.Socials.Social[0].followingCount}</p>
+                <p>FarScore: {data.Socials.Social[0].farcasterScore?.farScore || 'N/A'}</p>
               </div>
+            ) : (
+              <p>No profile information found.</p>
+            )}
 
-              <h3>5 Latest Casts</h3>
-              {data.FarcasterCasts?.Cast &&
-              data.FarcasterCasts.Cast.length > 0 ? (
+            {data.FarcasterCasts?.Cast && data.FarcasterCasts.Cast.length > 0 ? (
+              <div>
+                <h2>Recent Casts</h2>
                 <ul>
-                  {data.FarcasterCasts.Cast.map((cast: { text: string }, index: number) => (
-                    <li key={`cast-${cast.text.substring(0, 10)}-${index}`}>{cast.text}</li>
+                  {data.FarcasterCasts.Cast.map((cast: { text: string, hash: string }) => (
+                    <li key={cast.hash}>{cast.text}</li>
                   ))}
                 </ul>
-              ) : (
-                <p>No recent casts found.</p>
-              )}
-            </div>
-          ) : (
-            !loading && <p>No data found for {queryFname}</p>
-          )}
-        </>
-      )}
+              </div>
+            ) : (
+              <p>No recent casts found.</p>
+            )}
+          </div>
+        )}
+      </main>
     </div>
   );
 };
