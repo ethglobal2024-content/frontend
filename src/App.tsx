@@ -5,9 +5,9 @@ import "./App.css";
 import { callStartChat } from "./Web3Modal";
 
 // Initialize Airstack with the API key from .env
-const apiKey = process.env.NEXT_PUBLIC_AIRSTACK_API_KEY || process.env.REACT_APP_AIRSTACK_API_KEY;
+const apiKey = process.env.AIRSTACK_API_KEY;
 if (!apiKey) {
-  throw new Error("NEXT_PUBLIC_AIRSTACK_API_KEY is not set in environment variables");
+  throw new Error("AIRSTACK_API_KEY is not set in environment variables");
 }
 init(apiKey);
 
