@@ -4,8 +4,16 @@ import { useWeb3Modal, useWeb3ModalAccount, useWeb3ModalProvider } from '@web3mo
 import "./App.css";
 import { callStartChat } from "./Web3Modal";
 
-// Initialize Airstack with the API key from .env
-const apiKey = process.env.REACT_APP_AIRSTACK_API_KEY || '';
+let apiKey = '';
+
+try {
+  apiKey = process.env.REACT_APP_AIRSTACK_API_KEY || '';
+  if (!apiKey) {
+    throw new Error("API key not found");
+  }
+} catch (error) {
+  console.error("Error loading API key:", error);
+}
 
 init(apiKey);
 
