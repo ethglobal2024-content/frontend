@@ -1,6 +1,7 @@
 'use client'
 
 import { createWeb3Modal, defaultConfig, useWeb3Modal, useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers/react'
+// biome-ignore lint/style/useImportType: <explanation>
 import { BrowserProvider, Contract, JsonRpcSigner, TransactionReceipt, ethers } from "ethers";
 import type { ChatMessage } from './interface';
 import { ABI } from './abi';

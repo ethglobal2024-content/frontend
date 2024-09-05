@@ -294,4 +294,62 @@ li {
   .faucet-link a:hover {
     text-decoration: underline;
   }
+
+  /* General link styles */
+  a,
+  a:link,
+  a:visited {
+    color: #bb86fc !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  a:hover,
+  a:active {
+    color: #03dac6 !important;
+    text-decoration: underline;
+  }
+
+  /* Specific styles for footer links */
+  .App-footer {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    background-color: #2c2c2c;
+    border-top: 1px solid #bb86fc;
+  }
+
+  .App-footer p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #e0e0e0;
+  }
+
+  .App-footer a,
+  .App-footer a:link,
+  .App-footer a:visited {
+    color: #bb86fc !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .App-footer a:hover,
+  .App-footer a:active {
+    color: #03dac6 !important;
+    text-decoration: underline;
+  }
+
+  /* Styles for faucet link */
+  .faucet-link a,
+  .faucet-link a:link,
+  .faucet-link a:visited {
+    color: #bb86fc !important;
+    text-decoration: none;
+  }
+
+  .faucet-link a:hover,
+  .faucet-link a:active {
+    color: #03dac6 !important;
+    text-decoration: underline;
+  }
 }

@@ -89,7 +89,7 @@ User Messages: ${casts.slice(0, 5).map((cast: { text: string }) => cast.text).jo
     try {
       setIsWaitingForAI(true);
       const response = await callStartChat(formattedData, web3ModalState);
-      if (response && response.content) {
+      if (response?.content) {
         const parts = response.content.split("Overall Assessment:");
         if (parts.length > 1) {
           setAiResponse({
@@ -183,54 +183,67 @@ User Messages: ${casts.slice(0, 5).map((cast: { text: string }) => cast.text).jo
               </div>
             )}
 
-    {aiResponse && (
-      <div className="ai-response">
-        <h2>Galardriel AI Response</h2>
-        <div className="overall-assessment">
-          <h2>Overall Assessment</h2>
-          {aiResponse.overall.split('\n').map((line, index) => {
-            if (line.startsWith('Potential Spam:')) {
-              return (
-                <React.Fragment key={index}>
-                  <h3>Potential Spam:</h3>
-                  <p>{line.substring('Potential Spam:'.length).trim()}</p>
-                </React.Fragment>
-              );
-            } else if (line.startsWith('Ethical Concerns:')) {
-              return (
-                <React.Fragment key={index}>
-                  <h3>Ethical Concerns:</h3>
-                  <p>{line.substring('Ethical Concerns:'.length).trim()}</p>
-                </React.Fragment>
-              );
-            } else if (line.startsWith('Recommended Action:')) {
-              return (
-                <React.Fragment key={index}>
-                  <h3>Recommended Action:</h3>
-                  <p>{line.substring('Recommended Action:'.length).trim()}</p>
-                </React.Fragment>
-              );
-            } else {
-              return <p key={index}>{line}</p>;
-            }
-          })}
-        </div>
-        <button onClick={toggleDetails} className="toggle-details-button">
-          {showDetails ? "Hide Details" : "Show Details"}
-        </button>
-        {showDetails && (
-          <div className="response-details">
-            <h2>Details:</h2>
-            {aiResponse.details.split('\n').map((line, index) => (
-              <p key={index}>{line}</p>
-            ))}
-          </div>
-        )}
+            {aiResponse && (
+              <div className="ai-response">
+                <h2>Galadriel AI Response</h2>
+                <div className="overall-assessment">
+                  <h2>Overall Assessment</h2>
+                  {aiResponse.overall.split('\n').map((line, index) => {
+                    if (line.startsWith('Potential Spam:')) {
+                      return (
+                        <React.Fragment key={`potential-spam-${line}`}>
+                          <h3>Potential Spam:</h3>
+                          <p>{line.substring('Potential Spam:'.length).trim()}</p>
+                        </React.Fragment>
+                      );
+                    } else if (line.startsWith('Ethical Concerns:')) {
+                      return (
+                        <React.Fragment key={index}>
+                          <h3>Ethical Concerns:</h3>
+                          <p>{line.substring('Ethical Concerns:'.length).trim()}</p>
+                        </React.Fragment>
+                      );
+                    } else if (line.startsWith('Recommended Action:')) {
+                      return (
+                        <React.Fragment key={index}>
+                          <h3>Recommended Action:</h3>
+                          <p>{line.substring('Recommended Action:'.length).trim()}</p>
+                        </React.Fragment>
+                      );
+                    } else {
+                      return <p key={index}>{line}</p>;
+                    }
+                  })}
+                </div>
+                <button onClick={toggleDetails} className="toggle-details-button" type="button">
+                  {showDetails ? "Hide Details" : "Show Details"}
+                </button>
+                {showDetails && (
+                  <div className="response-details">
+                    <h2>Details:</h2>
+                    {aiResponse.details.split('\n').map((line, index) => (
+                      <p key={`line-${index}-${line.slice(0, 10)}`}>{line}</p>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>
         )}
       </main>
+      <footer className="App-footer">
+        <p>
+          Made with ❤️ by{" "}
+          <a href="https://www.farcaster.id/0xteresa.eth" target="_blank" rel="noopener noreferrer">
+            0xteresa.eth
+          </a>{" "}
+          &{" "}
+          <a href="https://www.farcaster.id/metaend.eth" target="_blank" rel="noopener noreferrer">
+            metaend.eth
+          </a>{" "}
+          for EthGlobal2024
+        </p>
+      </footer>
     </div>
   );
 };
