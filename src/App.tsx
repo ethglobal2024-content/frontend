@@ -69,7 +69,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Farcaster Profile Lookup</h1>
+        <h1>Farcaster Content Cop</h1>
       </header>
       <main>
         <div className="search-container">
@@ -91,33 +91,43 @@ const App: React.FC = () => {
         {error && <p>Error: {error.message}</p>}
 
         {hasSubmitted && data && (
-          <div>
-            {data.Socials?.Social && data.Socials.Social.length > 0 ? (
-              <div>
-                <h2>Profile Information</h2>
-                <p>Name: {data.Socials.Social[0].profileName}</p>
-                <p>Followers: {data.Socials.Social[0].followerCount}</p>
-                <p>Following: {data.Socials.Social[0].followingCount}</p>
-                <p>FarScore: {data.Socials.Social[0].farcasterScore?.farScore || 'N/A'}</p>
-              </div>
-            ) : (
-              <p>No profile information found.</p>
-            )}
-
-            {data.FarcasterCasts?.Cast && data.FarcasterCasts.Cast.length > 0 ? (
-              <div>
-                <h2>Recent Casts</h2>
-                <ul>
-                  {data.FarcasterCasts.Cast.map((cast: { text: string, hash: string }) => (
-                    <li key={cast.hash}>{cast.text}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <p>No recent casts found.</p>
-            )}
+  <div>
+    {data.Socials?.Social && data.Socials.Social.length > 0 ? (
+      <div>
+        <h2 className="profile-name">{data.Socials.Social[0].profileName}</h2>
+        <div className="profile-info">
+          <div className="info-item">
+            <span className="info-label">Far Score</span>
+            <span className="info-value">{data.Socials.Social[0].farcasterScore?.farScore || 'N/A'}</span>
           </div>
-        )}
+          <div className="info-item">
+            <span className="info-label">Followers</span>
+            <span className="info-value">{data.Socials.Social[0].followerCount}</span>
+          </div>
+          <div className="info-item">
+            <span className="info-label">Following</span>
+            <span className="info-value">{data.Socials.Social[0].followingCount}</span>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <p>No profile information found.</p>
+    )}
+
+    {data.FarcasterCasts?.Cast && data.FarcasterCasts.Cast.length > 0 ? (
+      <div>
+        <h3 className="casts-title">5 Latest Casts</h3>
+        <ul>
+          {data.FarcasterCasts.Cast.map((cast: { text: string, hash: string }) => (
+            <li key={cast.hash}>{cast.text}</li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      <p>No recent casts found.</p>
+    )}
+  </div>
+)}
       </main>
     </div>
   );

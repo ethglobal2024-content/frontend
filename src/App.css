@@ -73,7 +73,12 @@ li {
   border-radius: 0 4px 4px 0;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .info-label {
@@ -84,13 +89,13 @@ li {
 .info-value {
   font-size: 20px;
   color: #03dac6;
-  margin-left: 10px;
+  margin-top: 5px;
 }
 
 .search-container {
   display: flex;
-  justify-content: center;
-  align-items: stretch;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   gap: 10px;
 }
@@ -98,7 +103,6 @@ li {
 .search-container form {
   display: flex;
   flex-grow: 1;
-  max-width: 600px;
 }
 
 .search-container input {
@@ -131,6 +135,20 @@ li {
   max-width: 200px;
 }
 
+.profile-name {
+  color: #03dac6;
+  font-size: 24px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #03dac6;
+  padding-bottom: 10px;
+}
+
+.casts-title {
+  color: #bb86fc;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
 @media (max-width: 600px) {
   body {
     padding: 10px;
@@ -144,9 +162,8 @@ li {
     flex-direction: column;
   }
 
-  .info-value {
-    display: block;
-    margin-left: 0;
+  .info-item {
+    margin-bottom: 10px;
   }
 
   .search-container {
