@@ -157,7 +157,10 @@ User Messages: ${casts.slice(0, 5).map((cast: { text: string }) => cast.text).jo
                     <span className="info-value">{data.Socials.Social[0].followingCount}</span>
                   </div>
                 </div>
-                <button onClick={handleCheckUser} className="check-user-button">Check User</button>
+                <button onClick={handleCheckUser} className="check-user-button" type="button">Check User</button>
+                <div className="faucet-link">
+                  <a href="https://docs.galadriel.com/faucet" target="_blank" rel="noopener noreferrer">GAL Faucet</a>
+                </div>
               </div>
             ) : (
               <p>No profile information found.</p>

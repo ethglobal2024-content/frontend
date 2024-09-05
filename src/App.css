@@ -280,4 +280,18 @@ li {
     margin-top: 15px;
     border-radius: 0 4px 4px 0;
   }
+
+  .faucet-link {
+    margin-top: 10px;
+    font-size: 0.9em;
+  }
+
+  .faucet-link a {
+    color: #bb86fc; /* This is the purple color used in your theme */
+    text-decoration: none;
+  }
+
+  .faucet-link a:hover {
+    text-decoration: underline;
+  }
 }
