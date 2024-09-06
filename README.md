@@ -4,6 +4,8 @@
 
 Farcaster Content Cop is an innovative application developed for the EthGlobal 2024 hackathon. It leverages the power of decentralized AI to analyze and moderate content on the Farcaster social media platform.
 
+The Galardriel Smart Contracts are located [here](https://github.com/ethglobal2024-content/contracts)
+
 ## Overview
 
 This project demonstrates the integration of blockchain technology with artificial intelligence, utilizing Galadriel's groundbreaking L1 solution for decentralized AI applications.
@@ -34,10 +36,6 @@ Galadriel is an innovative L1 blockchain that enables developers to build decent
 2. Install dependencies: `bun install`
 3. Set up environment variables (see `.env.example`)
 4. Run the development server: `bun start`
-
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for more details.
 
 ## License
 
